@@ -176,4 +176,41 @@ public class CervejaDAO implements ICervejaDAO {
 
 	}
 
+	public Cerveja selecionarCerv(int id) {
+		Cerveja cerv = new Cerveja(id);
+		Connection connection = null;
+		try {
+			Class.forName(JDBC_DRIVER);
+
+			connection = DriverManager.getConnection(LOCAL_HOST, DB_USER, DB_PASSWORD);
+
+			PreparedStatement sttm = connection.prepareStatement("select * from cerveja where id_cerv = ?");
+			sttm.setInt(1, id);
+			ResultSet rs = sttm.executeQuery();
+
+			while (rs.next()) {
+
+				cerv.setNm_cerv(rs.getString("nm_cerv"));
+				cerv.setNm_estilo(rs.getString("nm_estilo"));
+				cerv.setTeor_alcool(rs.getDouble("teor_alcoolico"));
+
+			}
+			return cerv;
+		} catch (ClassNotFoundException e) {
+			System.out.println(ERRO);
+			e.printStackTrace();
+			return null;
+		} catch (SQLException Except) {
+			System.out.println(ERRO);
+			Except.printStackTrace();
+			return null;
+		} finally {
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }
