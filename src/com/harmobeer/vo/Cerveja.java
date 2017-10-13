@@ -24,6 +24,11 @@ public class Cerveja {
 		this.nm_estilo = nm_estilo;
 		this.teor_alcool = teor_alcool;
 	}
+	public Cerveja(String nm_cerv, String nm_estilo, double teor_alcool) {
+		this.nm_cerv = nm_cerv;
+		this.nm_estilo = nm_estilo;
+		this.teor_alcool = teor_alcool;
+	}
 
 	/**
 	 * @return the id_cerv

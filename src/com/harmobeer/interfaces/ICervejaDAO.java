@@ -19,7 +19,7 @@ public interface ICervejaDAO {
 	
 	public boolean deletar(Cerveja cerveja);
 	
-	public List <Cerveja> listar();
+	public List <Cerveja> listarTodos();
 	
 	
 

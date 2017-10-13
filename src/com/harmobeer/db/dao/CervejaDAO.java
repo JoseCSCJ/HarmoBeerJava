@@ -6,12 +6,13 @@ package com.harmobeer.db.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.harmobeer.interfaces.ICervejaDAO;
 import com.harmobeer.vo.Cerveja;
-
 
 /**
  * @author Usuário
@@ -19,16 +20,22 @@ import com.harmobeer.vo.Cerveja;
  */
 public class CervejaDAO implements ICervejaDAO {
 
+	private static final String JDBC_DRIVER = "oracle.jdbc.driver.OracleDriver";
+	private static final String LOCAL_HOST = "jdbc:oracle:thin:@//localhost:1521/xe";
+	private static final String DB_USER = "harmobeer";
+	private static final String DB_PASSWORD = "harmobeer";
+	private static final String ERRO = "Oops! Não foi possível completar sua requisição. Tente novamente mais tarde.";
+
 	@Override
 	public boolean incluir(Cerveja cerveja) {
 		Connection connection = null;
 		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
+			Class.forName(JDBC_DRIVER);
 
-			connection = DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/xe", "aluno", "aluno");
+			connection = DriverManager.getConnection(LOCAL_HOST, DB_USER, DB_PASSWORD);
 
 			PreparedStatement sttm = connection.prepareStatement(
-					"insert into cerveja(id_cerv, nm_cerv, nm_estilo, teor_alcool) values(seqcerv.nextval,?,?,?)");
+					"insert into cerveja(id_cerv, nm_cerv, nm_estilo, teor_alcoolico) values(seqcerv.nextval,?,?,?)");
 			sttm.setString(1, cerveja.getNm_cerv());
 			sttm.setString(2, cerveja.getNm_estilo());
 			sttm.setDouble(3, cerveja.getTeor_alcool());
@@ -37,9 +44,11 @@ public class CervejaDAO implements ICervejaDAO {
 			return true;
 
 		} catch (ClassNotFoundException e) {
+			System.out.println(ERRO);
 			e.printStackTrace();
 			return false;
 		} catch (SQLException Except) {
+			System.out.println(ERRO);
 			Except.printStackTrace();
 			return false;
 		} finally {
@@ -47,7 +56,6 @@ public class CervejaDAO implements ICervejaDAO {
 				if (connection != null)
 					connection.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -56,20 +64,116 @@ public class CervejaDAO implements ICervejaDAO {
 
 	@Override
 	public boolean editar(Cerveja cerveja) {
-		// TODO Auto-generated method stub
-		return false;
+		Connection connection = null;
+		try {
+			Class.forName(JDBC_DRIVER);
+
+			connection = DriverManager.getConnection(LOCAL_HOST, DB_USER, DB_PASSWORD);
+
+			PreparedStatement sttm = connection.prepareStatement(
+					"UPDATE cerveja SET nm_cerv = ?, nm_estilo = ?, teor_alcoolico = ? where id_cerv = ?");
+			sttm.setString(1, cerveja.getNm_cerv());
+			sttm.setString(2, cerveja.getNm_estilo());
+			sttm.setDouble(3, cerveja.getTeor_alcool());
+			sttm.setInt(4, cerveja.getId_cerv());
+
+			sttm.executeUpdate();
+			return true;
+
+		} catch (ClassNotFoundException e) {
+			System.out.println(ERRO);
+			e.printStackTrace();
+			return false;
+		} catch (SQLException Except) {
+			System.out.println(ERRO);
+			Except.printStackTrace();
+			return false;
+		} finally {
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
 	}
 
 	@Override
 	public boolean deletar(Cerveja cerveja) {
-		// TODO Auto-generated method stub
-		return false;
+		Connection connection = null;
+		try {
+			Class.forName(JDBC_DRIVER);
+
+			connection = DriverManager.getConnection(LOCAL_HOST, DB_USER, DB_PASSWORD);
+
+			PreparedStatement sttm = connection.prepareStatement("DELETE from cerveja where id_cerv = ?");
+			sttm.setInt(1, cerveja.getId_cerv());
+			sttm.executeUpdate();
+			return true;
+
+		} catch (ClassNotFoundException e) {
+			System.out.println(ERRO);
+			e.printStackTrace();
+			return false;
+		} catch (SQLException Except) {
+			System.out.println(ERRO);
+			Except.printStackTrace();
+			return false;
+		} finally {
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
 	}
 
 	@Override
-	public List<Cerveja> listar() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Cerveja> listarTodos() {
+		ArrayList<Cerveja> listaCerv = new ArrayList<Cerveja>();
+		Connection connection = null;
+		try {
+			Class.forName(JDBC_DRIVER);
+
+			connection = DriverManager.getConnection(LOCAL_HOST, DB_USER, DB_PASSWORD);
+
+			PreparedStatement sttm = connection.prepareStatement("select * from cerveja");
+			ResultSet rs = sttm.executeQuery();
+
+			while (rs.next()) {
+
+				int id_cerv = rs.getInt("id_cerv");
+				String nm_cerv = rs.getString("nm_cerv");
+				String nm_estilo = rs.getString("nm_estilo");
+				double teor_alcool = rs.getDouble("teor_alcoolico");
+
+				Cerveja cerv = new Cerveja(id_cerv, nm_cerv, nm_estilo, teor_alcool);
+
+				listaCerv.add(cerv);
+			}
+
+			return listaCerv;
+
+		} catch (ClassNotFoundException e) {
+			System.out.println(ERRO);
+			e.printStackTrace();
+			return null;
+		} catch (SQLException Except) {
+			System.out.println(ERRO);
+			Except.printStackTrace();
+			return null;
+		} finally {
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
 	}
 
 }
