@@ -10,8 +10,8 @@ import com.harmobeer.interfaces.ICervejaDAO;
 import com.harmobeer.vo.Cerveja;
 
 /**
- * @author Usuário
- *
+ * @author José Carlos Soares da Cruz Júnior / Luan Henrique Cunha Alves
+ * Classe responsável pelo Modelo dos objetos Cerveja
  */
 public class CervejaModel implements ICervejaDAO {
 	

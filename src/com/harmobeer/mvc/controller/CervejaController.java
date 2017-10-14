@@ -10,7 +10,8 @@ import com.harmobeer.mvc.model.CervejaModel;
 import com.harmobeer.vo.Cerveja;
 
 /**
- * @author Usuário
+ * @author José Carlos Soares da Cruz Júnior / Luan Henrique Cunha Alves
+ * Classe responsável pelo controlador dos objetos Cerveja
  *
  */
 public class CervejaController implements ICervejaDAO{

@@ -15,7 +15,8 @@ import com.harmobeer.interfaces.ICervejaDAO;
 import com.harmobeer.vo.Cerveja;
 
 /**
- * @author Usuário
+ * @author José Carlos Soares da Cruz Júnior / Luan Henrique Cunha Alves
+ * Classe responsável pelo acesso ao banco de dados do objeto cerveja
  *
  */
 public class CervejaDAO implements ICervejaDAO {
@@ -26,6 +27,9 @@ public class CervejaDAO implements ICervejaDAO {
 	private static final String DB_PASSWORD = "harmobeer";
 	private static final String ERRO = "Oops! Não foi possível completar sua requisição. Tente novamente mais tarde.";
 
+	/**
+	 * Método responsável por realizar a inclusão de Cervejas no banco
+	 */
 	@Override
 	public boolean incluir(Cerveja cerveja) {
 		Connection connection = null;
@@ -62,6 +66,9 @@ public class CervejaDAO implements ICervejaDAO {
 
 	}
 
+	/**
+	 *Método responsável por realizar a edição de Cervejas cadastradas no banco 
+	 */
 	@Override
 	public boolean editar(Cerveja cerveja) {
 		Connection connection = null;
@@ -99,6 +106,9 @@ public class CervejaDAO implements ICervejaDAO {
 
 	}
 
+	/**
+	 * Método responsável por realizar a exclusão de Cervejas cadastradas no banco
+	 */
 	@Override
 	public boolean deletar(Cerveja cerveja) {
 		Connection connection = null;
@@ -131,6 +141,9 @@ public class CervejaDAO implements ICervejaDAO {
 
 	}
 
+	/**
+	 * Método responsável por realizar a listagem de todas as Cervejas cadastradas no banco
+	 */
 	@Override
 	public List<Cerveja> listarTodos() {
 		ArrayList<Cerveja> listaCerv = new ArrayList<Cerveja>();
@@ -176,6 +189,11 @@ public class CervejaDAO implements ICervejaDAO {
 
 	}
 
+	/**
+	 * Método responsável por buscar e trazer o resultado de uma Cervejas no banco
+	 * @param id ID da cerveja cadastrada no banco
+	 * @return Cerveja selecionada
+	 */
 	public Cerveja selecionarCerv(int id) {
 		Cerveja cerv = new Cerveja(id);
 		Connection connection = null;

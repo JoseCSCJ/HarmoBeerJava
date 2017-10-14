@@ -6,6 +6,11 @@ import com.harmobeer.mvc.controller.CervejaController;
 import com.harmobeer.util.Leitor;
 import com.harmobeer.vo.Cerveja;
 
+/**
+ * 
+ * @author José Carlos Soares da Cruz Júnior / Luan Henrique Cunha Alves
+ * Classe responsável pelo Visualizador dos objetos Cerveja
+ */
 public class CervejaView {
 
 	private CervejaController cervejaController;
@@ -14,6 +19,9 @@ public class CervejaView {
 		cervejaController = new CervejaController();
 	}
 
+	/**
+	 * Método para carregar o menu principal
+	 */
 	public void menu() {
 
 		int op = 0;
@@ -50,6 +58,9 @@ public class CervejaView {
 		} while (op != 0);
 	}
 
+	/**
+	 * Método responsável por realizar a inclusão de cervejas
+	 */
 	public void incluir() {
 
 		System.out.println("Vamos incluir uma cerveja no banco de dados!");
@@ -80,6 +91,9 @@ public class CervejaView {
 
 	}
 
+	/**
+	 * Método responsável por realizar a edição de cervejas cadastradas
+	 */
 	public void editar() {
 		String nm_cerv = "";
 		String nm_estilo = "";
@@ -141,6 +155,9 @@ public class CervejaView {
 		}
 	}
 
+	/**
+	 * Método responsável por realizar a exclusão de cervejas cadastradas
+	 */
 	public void deletar() {
 
 		System.out.println("Selecione a cerveja que deseja deletar do banco de dados");
@@ -153,6 +170,9 @@ public class CervejaView {
 
 	}
 
+	/**
+	 * Método responsável pela listagem de todas as cervejas cadastradas
+	 */
 	public void listarTodos() {
 		ArrayList<Cerveja> cerv = new ArrayList<Cerveja>();
 		cerv = (ArrayList<Cerveja>) cervejaController.listarTodos();

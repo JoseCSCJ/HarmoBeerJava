@@ -4,8 +4,8 @@
 package com.harmobeer.vo;
 
 /**
- * @author Usuário
- *
+ * @author José Carlos Soares da Cruz Júnior / Luan Henrique Cunha Alves
+ * Classe que representa o objeto Cerveja
  */
 public class Cerveja {
 	
@@ -14,16 +14,34 @@ public class Cerveja {
 	private String nm_estilo;
 	private double teor_alcool;
 	
+	/**
+	 * Contrutor da classe cerveja passando o id como parâmetro
+	 * @param id_cerv
+	 */
 	public Cerveja(int id_cerv) {
 		this.id_cerv = id_cerv;
 	}
 	
+	/**
+	 * Contrutor da classe cerveja passando o id, nome, estilo e teor álcoolico como parâmetros
+	 * @param id_cerv
+	 * @param nm_cerv
+	 * @param nm_estilo
+	 * @param teor_alcool
+	 */
 	public Cerveja(int id_cerv, String nm_cerv, String nm_estilo, double teor_alcool) {
 		this.id_cerv = id_cerv;
 		this.nm_cerv = nm_cerv;
 		this.nm_estilo = nm_estilo;
 		this.teor_alcool = teor_alcool;
 	}
+	
+	/**
+	 * Contrutor da classe cerveja passando o nome, estilo e teor álcoolico como parâmetros
+	 * @param nm_cerv
+	 * @param nm_estilo
+	 * @param teor_alcool
+	 */
 	public Cerveja(String nm_cerv, String nm_estilo, double teor_alcool) {
 		this.nm_cerv = nm_cerv;
 		this.nm_estilo = nm_estilo;
@@ -31,6 +49,7 @@ public class Cerveja {
 	}
 
 	/**
+	 * Método que recebe o id da cerveja
 	 * @return the id_cerv
 	 */
 	public int getId_cerv() {
@@ -38,6 +57,7 @@ public class Cerveja {
 	}
 
 	/**
+	 * Método que seta o valor do id da cerveja
 	 * @param id_cerv the id_cerv to set
 	 */
 	public void setId_cerv(int id_cerv) {
@@ -45,6 +65,7 @@ public class Cerveja {
 	}
 
 	/**
+	 * Método que recebe o nome da cerveja
 	 * @return the nm_cerv
 	 */
 	public String getNm_cerv() {
@@ -52,6 +73,7 @@ public class Cerveja {
 	}
 
 	/**
+	 * Método que seta o valor do nome da cerveja
 	 * @param nm_cerv the nm_cerv to set
 	 */
 	public void setNm_cerv(String nm_cerv) {
@@ -59,6 +81,7 @@ public class Cerveja {
 	}
 
 	/**
+	 * Método que recebe o estilo da cerveja
 	 * @return the nm_estilo
 	 */
 	public String getNm_estilo() {
@@ -66,6 +89,7 @@ public class Cerveja {
 	}
 
 	/**
+	 * Método que seta o valor do estilo da cerveja
 	 * @param nm_estilo the nm_estilo to set
 	 */
 	public void setNm_estilo(String nm_estilo) {
@@ -73,6 +97,7 @@ public class Cerveja {
 	}
 
 	/**
+	 * Método que recebe o teor álcoolico da cerveja
 	 * @return the teor_alcool
 	 */
 	public double getTeor_alcool() {
@@ -80,6 +105,7 @@ public class Cerveja {
 	}
 
 	/**
+	 * Método que seta o valor do teor álcoolico da cerveja
 	 * @param teor_alcool the teor_alcool to set
 	 */
 	public void setTeor_alcool(double teor_alcool) {
