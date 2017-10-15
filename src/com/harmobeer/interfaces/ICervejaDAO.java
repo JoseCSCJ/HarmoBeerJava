@@ -8,8 +8,9 @@ import java.util.List;
 import com.harmobeer.vo.Cerveja;
 
 /**
- * @author José Carlos Soares da Cruz Júnior / Luan Henrique Cunha Alves
  * Interface responsável pelos DAO's da classe Cerveja
+ * @author José Carlos Soares da Cruz Junior / Luan Henrique Cunha Alves
+ * 
  */
 public interface ICervejaDAO {
 	

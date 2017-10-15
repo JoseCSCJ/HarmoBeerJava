@@ -3,9 +3,10 @@
  */
 package com.harmobeer.vo;
 
-/**
- * @author José Carlos Soares da Cruz Júnior / Luan Henrique Cunha Alves
- * Classe que representa o objeto Cerveja
+/** 
+ * Classe que modela o objeto Cerveja
+ * 
+ * @author José Carlos Soares da Cruz Junior / Luan Henrique Cunha Alves
  */
 public class Cerveja {
 	
@@ -15,7 +16,8 @@ public class Cerveja {
 	private double teor_alcool;
 	
 	/**
-	 * Contrutor da classe cerveja passando o id como parâmetro
+	 * Construtor da classe cerveja passando o id como parâmetro. 
+	 * Utilizado para construir o objeto em situações onde o usuário seleciona uma cerveja.
 	 * @param id_cerv
 	 */
 	public Cerveja(int id_cerv) {
@@ -23,7 +25,8 @@ public class Cerveja {
 	}
 	
 	/**
-	 * Contrutor da classe cerveja passando o id, nome, estilo e teor álcoolico como parâmetros
+	 * Construtor da classe cerveja passando o id, nome, estilo e teor álcoolico como parâmetros.
+	 * Utilizado para construir o objeto completo, com todos os parâmetros possíveis.
 	 * @param id_cerv
 	 * @param nm_cerv
 	 * @param nm_estilo
@@ -37,7 +40,8 @@ public class Cerveja {
 	}
 	
 	/**
-	 * Contrutor da classe cerveja passando o nome, estilo e teor álcoolico como parâmetros
+	 * Construtor da classe cerveja passando o nome, estilo e teor álcoolico como parâmetros.
+	 * Utilizado para inclusão da cerveja no banco de dados. O parâmetro id é recebido apenas no banco de dados. 
 	 * @param nm_cerv
 	 * @param nm_estilo
 	 * @param teor_alcool
