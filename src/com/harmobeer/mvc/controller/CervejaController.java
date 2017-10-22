@@ -4,11 +4,9 @@
 package com.harmobeer.mvc.controller;
 
 import java.util.List;
-import java.text.DecimalFormat;
 
 import com.harmobeer.interfaces.ICervejaDAO;
 import com.harmobeer.mvc.model.CervejaModel;
-import com.harmobeer.util.Leitor;
 import com.harmobeer.vo.Cerveja;
 
 
