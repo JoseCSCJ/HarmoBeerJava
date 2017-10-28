@@ -3,8 +3,9 @@ id_user INTEGER NOT NULL,
 username VARCHAR2(20) NOT NULL,
 email VARCHAR2(50) NOT NULL,
 senha VARCHAR2(20) NOT NULL,
-privilegio BOOLEAN NOT NULL,
+privilegio char(1) NOT NULL,
 info VARCHAR2(200) NULL,
+CONSTRAINT check_privilegio CHECK (privilegio IN ('1','0')),
 CONSTRAINT pk_id_user PRIMARY KEY (ID_user));
 
 CREATE TABLE Cerveja(

@@ -10,6 +10,7 @@ package com.harmobeer.vo;
  */
 public class Usuario {
 	
+	
 	private int id_user;
 	private String username;
 	private String email;
@@ -40,6 +41,22 @@ public class Usuario {
 	 * @param username
 	 * @param email
 	 * @param senha
+	 * @param info
+	 */
+	public Usuario(String username, String email, String senha, String info) {
+		super();
+		this.username = username;
+		this.email = email;
+		this.senha = senha;
+		this.info = info;
+	}
+
+
+
+	/**
+	 * @param username
+	 * @param email
+	 * @param senha
 	 * @param privilegio
 	 * @param info
 	 */
@@ -50,7 +67,27 @@ public class Usuario {
 		this.privilegio = privilegio;
 		this.info = info;
 	}
-	
+	/**
+	 * @param id_user
+	 * @param username
+	 * @param email
+	 * @param senha
+	 * @param info
+	 */
+	public Usuario(int id_user, String username, String email, String senha, String info) {
+		this.id_user = id_user;
+		this.username = username;
+		this.email = email;
+		this.senha = senha;
+		this.info = info;
+	}
+	/**
+	 * @param id_user
+	 */
+	public Usuario(int id_user) {
+		this.id_user = id_user;
+		
+	}
 	
 	
 	/**

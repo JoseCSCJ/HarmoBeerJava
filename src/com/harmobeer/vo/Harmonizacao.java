@@ -11,6 +11,7 @@ package com.harmobeer.vo;
  */
 public class Harmonizacao {
 	
+	
 	private int id_harmo;
 	private int id_cerv;
 	private int id_prato;
@@ -43,6 +44,12 @@ public class Harmonizacao {
 		this.id_cerv = id_harmo;
 		this.id_prato = id_harmo;
 		this.media = media;
+	}
+	/**
+	 * @param id_harmo
+	 */
+	public Harmonizacao(int id_harmo) {
+		this.id_harmo = id_harmo;
 	}
 	
 	/**
