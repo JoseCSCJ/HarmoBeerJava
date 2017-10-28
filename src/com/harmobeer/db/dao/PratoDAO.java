@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.harmobeer.db.dao;
 
@@ -15,11 +15,11 @@ import com.harmobeer.interfaces.IPratoDAO;
 import com.harmobeer.vo.Prato;
 
 /**
- * 
- * Classe responsável pelo acesso ao banco de dados do objeto prato
- * 
- * @author José Carlos Soares da Cruz Junior / Luan Henrique Cunha Alves
- * 
+ *
+ * Classe responsï¿½vel pelo acesso ao banco de dados do objeto prato
+ *
+ * @author Josï¿½ Carlos Soares da Cruz Junior / Luan Henrique Cunha Alves
+ *
  */
 public class PratoDAO implements IPratoDAO {
 
@@ -27,16 +27,16 @@ public class PratoDAO implements IPratoDAO {
 	private static final String LOCAL_HOST = "jdbc:oracle:thin:@//localhost:1521/xe";
 	private static final String DB_USER = "harmobeer";
 	private static final String DB_PASSWORD = "harmobeer";
-	private static final String ERRO = "Não foi possível completar sua requisição.";
+	private static final String ERRO = "Nï¿½o foi possï¿½vel completar sua requisiï¿½ï¿½o.";
 
 	/**
-	 * Método responsável por realizar a inclusão de pratos no banco.
-	 * 
+	 * Mï¿½todo responsï¿½vel por realizar a inclusï¿½o de pratos no banco.
+	 *
 	 * @param Prato
-	 *            prato a ser incluído
-	 * @return boolean true para transação bem sucedida e false para transação
+	 *            prato a ser incluï¿½do
+	 * @return boolean true para transaï¿½ï¿½o bem sucedida e false para transaï¿½ï¿½o
 	 *         interrompida.
-	 * 
+	 *
 	 */
 	@Override
 	public boolean incluir(Prato prato) {
@@ -77,11 +77,11 @@ public class PratoDAO implements IPratoDAO {
 	}
 
 	/**
-	 * Método responsável por realizar a edição de Pratos cadastradas no banco.
-	 * 
+	 * Mï¿½todo responsï¿½vel por realizar a ediï¿½ï¿½o de Pratos cadastradas no banco.
+	 *
 	 * @param Prato
 	 *            prato a ser editado
-	 * @return boolean true para transação bem sucedida e false para transação
+	 * @return boolean true para transaï¿½ï¿½o bem sucedida e false para transaï¿½ï¿½o
 	 *         interrompida.
 	 */
 	@Override
@@ -124,11 +124,11 @@ public class PratoDAO implements IPratoDAO {
 	}
 
 	/**
-	 * Método responsável por realizar a exclusão de Pratos cadastradas no banco
-	 * 
+	 * Mï¿½todo responsï¿½vel por realizar a exclusï¿½o de Pratos cadastradas no banco
+	 *
 	 * @param Prato
 	 *            prato a deletada
-	 * @return boolean true para transação bem sucedida e false para transação
+	 * @return boolean true para transaï¿½ï¿½o bem sucedida e false para transaï¿½ï¿½o
 	 *         interrompida.
 	 */
 	@Override
@@ -139,6 +139,13 @@ public class PratoDAO implements IPratoDAO {
 			Class.forName(JDBC_DRIVER);
 
 			connection = DriverManager.getConnection(LOCAL_HOST, DB_USER, DB_PASSWORD);
+
+			sttm = connection.prepareStatement("DELETE from harmonizacao where id_prato = ?");
+            sttm.setInt(1, prato.getId_prato());
+            sttm.executeUpdate();
+            if (sttm != null) {
+                sttm.close();
+            }
 
 			sttm = connection.prepareStatement("DELETE from prato where id_prato = ?");
 			sttm.setInt(1, prato.getId_prato());
@@ -169,12 +176,12 @@ public class PratoDAO implements IPratoDAO {
 	}
 
 	/**
-	 * Método responsável por realizar a listagem de todas os Pratos cadastrados
+	 * Mï¿½todo responsï¿½vel por realizar a listagem de todas os Pratos cadastrados
 	 * no banco.
-	 * 
+	 *
 	 * @return ArrayList com os objetos da Classe Prato gerados com os dados
 	 *         recebidos do banco de dados.
-	 * 
+	 *
 	 */
 	@Override
 	public List<Prato> listarTodos() {
@@ -225,9 +232,9 @@ public class PratoDAO implements IPratoDAO {
 	}
 
 	/**
-	 * Método responsável por buscar e retornar um objeto da classe Prato no
+	 * Mï¿½todo responsï¿½vel por buscar e retornar um objeto da classe Prato no
 	 * banco
-	 * 
+	 *
 	 * @param id
 	 *            ID da prato cadastrada no banco
 	 * @return Prato selecionada

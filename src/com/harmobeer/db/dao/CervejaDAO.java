@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.harmobeer.db.dao;
 
@@ -15,10 +15,10 @@ import com.harmobeer.interfaces.ICervejaDAO;
 import com.harmobeer.vo.Cerveja;
 
 /**
- * 
- * Classe responsável pelo acesso ao banco de dados do objeto cerveja
- * @author José Carlos Soares da Cruz Junior / Luan Henrique Cunha Alves 
- * 
+ *
+ * Classe responsï¿½vel pelo acesso ao banco de dados do objeto cerveja
+ * @author Josï¿½ Carlos Soares da Cruz Junior / Luan Henrique Cunha Alves
+ *
  */
 public class CervejaDAO implements ICervejaDAO {
 
@@ -26,21 +26,22 @@ public class CervejaDAO implements ICervejaDAO {
 	private static final String LOCAL_HOST = "jdbc:oracle:thin:@//localhost:1521/xe";
 	private static final String DB_USER = "harmobeer";
 	private static final String DB_PASSWORD = "harmobeer";
-	private static final String ERRO = "Não foi possível completar sua requisição.";
+	private static final String ERRO = "Nï¿½o foi possï¿½vel completar sua requisiï¿½ï¿½o.";
 
 	/**
-	 * Método responsável por realizar a inclusão de Cervejas no banco.
-	 * 
+	 * Mï¿½todo responsï¿½vel por realizar a inclusï¿½o de Cervejas no banco.
+	 *
 	 * @param Cerveja
-	 *            cerveja a ser incluída
-	 * @return boolean true para transição bem sucedida e false para transição
+	 *            cerveja a ser incluï¿½da
+	 * @return boolean true para transiï¿½ï¿½o bem sucedida e false para transiï¿½ï¿½o
 	 *         interrompida.
-	 * 
+	 *
 	 */
 	@Override
 	public boolean incluir(Cerveja cerveja) {
 		Connection connection = null;
 		PreparedStatement sttm = null;
+
 		try {
 			Class.forName(JDBC_DRIVER);
 
@@ -53,6 +54,9 @@ public class CervejaDAO implements ICervejaDAO {
 			sttm.setDouble(3, cerveja.getTeor_alcool());
 
 			sttm.executeUpdate();
+
+
+
 			return true;
 
 		} catch (ClassNotFoundException e) {
@@ -79,12 +83,12 @@ public class CervejaDAO implements ICervejaDAO {
 	}
 
 	/**
-	 * Método responsável por realizar a edição de Cervejas cadastradas no
+	 * Mï¿½todo responsï¿½vel por realizar a ediï¿½ï¿½o de Cervejas cadastradas no
 	 * banco.
-	 * 
+	 *
 	 * @param Cerveja
 	 *            cerveja a ser editada
-	 * @return boolean true para transição bem sucedida e false para transição
+	 * @return boolean true para transiï¿½ï¿½o bem sucedida e false para transiï¿½ï¿½o
 	 *         interrompida.
 	 */
 	@Override
@@ -130,12 +134,12 @@ public class CervejaDAO implements ICervejaDAO {
 	}
 
 	/**
-	 * Método responsável por realizar a exclusão de Cervejas cadastradas no
+	 * Mï¿½todo responsï¿½vel por realizar a exclusï¿½o de Cervejas cadastradas no
 	 * banco
-	 * 
+	 *
 	 * @param Cerveja
 	 *            cerveja a deletada
-	 * @return boolean true para transição bem sucedida e false para transição
+	 * @return boolean true para transiï¿½ï¿½o bem sucedida e false para transiï¿½ï¿½o
 	 *         interrompida.
 	 */
 	@Override
@@ -146,7 +150,12 @@ public class CervejaDAO implements ICervejaDAO {
 			Class.forName(JDBC_DRIVER);
 
 			connection = DriverManager.getConnection(LOCAL_HOST, DB_USER, DB_PASSWORD);
-
+			sttm = connection.prepareStatement("DELETE from harmonizacao where id_cerv = ?");
+			sttm.setInt(1, cerveja.getId_cerv());
+			sttm.executeUpdate();
+			if (sttm != null) {
+                sttm.close();
+            }
 			sttm = connection.prepareStatement("DELETE from cerveja where id_cerv = ?");
 			sttm.setInt(1, cerveja.getId_cerv());
 			sttm.executeUpdate();
@@ -176,12 +185,12 @@ public class CervejaDAO implements ICervejaDAO {
 	}
 
 	/**
-	 * Método responsável por realizar a listagem de todas as Cervejas
+	 * Mï¿½todo responsï¿½vel por realizar a listagem de todas as Cervejas
 	 * cadastradas no banco.
-	 * 
+	 *
 	 * @return ArrayList com os objetos da Classe Cerveja gerados com os dados
 	 *         recebidos do banco de dados.
-	 * 
+	 *
 	 */
 	@Override
 	public List<Cerveja> listarTodos() {
@@ -234,9 +243,9 @@ public class CervejaDAO implements ICervejaDAO {
 	}
 
 	/**
-	 * Método responsável por buscar e retornar um objeto da classe Cerveja no
+	 * Mï¿½todo responsï¿½vel por buscar e retornar um objeto da classe Cerveja no
 	 * banco
-	 * 
+	 *
 	 * @param id
 	 *            ID da cerveja cadastrada no banco
 	 * @return Cerveja selecionada
