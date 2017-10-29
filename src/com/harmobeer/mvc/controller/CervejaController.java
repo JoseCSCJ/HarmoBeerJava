@@ -9,15 +9,16 @@ import com.harmobeer.interfaces.ICervejaDAO;
 import com.harmobeer.mvc.model.CervejaModel;
 import com.harmobeer.vo.Cerveja;
 
-
 /**
  * 
- *  Classe responsável pelo controlador dos objetos Cerveja
- * @author José Carlos Soares da Cruz Junior / Luan Henrique Cunha Alves
+ * Classe responsavel pelo controlador dos objetos Cerveja
+ * 
+ * @author Jose Carlos Soares da Cruz Junior / Luan Henrique Cunha Alves
  *
  */
 public class CervejaController implements ICervejaDAO {
 	private CervejaModel cervejaModel;
+
 	/**
 	 * Construtor da classe Cerveja Controller, utilizando a criação de um novo
 	 * objeto da classe CervejaModel.
@@ -25,27 +26,37 @@ public class CervejaController implements ICervejaDAO {
 	public CervejaController() {
 		cervejaModel = new CervejaModel();
 	}
+
 	/**
-	 * Método que passa um objeto cerveja, caso ela esteja de acordo com os limites do banco de dados, para ser incluída no banco de dados pela classe CervejaModel. 
+	 * Metodo que passa um objeto cerveja, caso ela esteja de acordo com os
+	 * limites do banco de dados, para ser incluida no banco de dados pela
+	 * classe CervejaModel.
+	 * 
 	 * @param Cerveja
-	 *            a ser incluída
-	 * @return boolean true para transição bem sucedida e false para transição
-	 *         interrompida, quando o objeto cerveja está fora do padrão do banco.
+	 *            a ser incluida
+	 * @return boolean true para transacao bem sucedida e false para transacao
+	 *         interrompida, quando o objeto cerveja está fora do padrão do
+	 *         banco.
 	 * 
 	 */
 	@Override
 	public boolean incluir(Cerveja cerveja) {
-		if (validarCerveja(cerveja)){
+		if (validarCerveja(cerveja)) {
 			return cervejaModel.incluir(cerveja);
 		}
 		return false;
 	}
+
 	/**
-	 * Método que passa um objeto cerveja, caso ela esteja de acordo com os limites do banco de dados, para ser atualizado no banco de dados pela classe CervejaModel. 
+	 * Metodo que passa um objeto cerveja, caso ela esteja de acordo com os
+	 * limites do banco de dados, para ser atualizado no banco de dados pela
+	 * classe CervejaModel.
+	 * 
 	 * @param Cerveja
 	 *            a ser editada
-	 * @return boolean true para transição bem sucedida e false para transição
-	 *         interrompida, quando o objeto cerveja está fora do padrão do banco.
+	 * @return boolean true para transacao bem sucedida e false para transacao
+	 *         interrompida, quando o objeto cerveja está fora do padrão do
+	 *         banco.
 	 * 
 	 */
 	@Override
@@ -55,11 +66,14 @@ public class CervejaController implements ICervejaDAO {
 		}
 		return false;
 	}
+
 	/**
-	 * Método que passa um objeto cerveja para ser deletado no banco de dados pela classe CervejaModel. 
+	 * Método que passa um objeto cerveja para ser deletado no banco de dados
+	 * pela classe CervejaModel.
+	 * 
 	 * @param cerveja
 	 *            a ser deletada
-	 * @return boolean true para transição bem sucedida e false para transição
+	 * @return boolean true para transacao bem sucedida e false para transacao
 	 *         interrompida.
 	 * 
 	 */
@@ -67,8 +81,10 @@ public class CervejaController implements ICervejaDAO {
 	public boolean deletar(Cerveja cerveja) {
 		return cervejaModel.deletar(cerveja);
 	}
+
 	/**
-	 * Método responsável acionar a listagem de cervejas no banco de dados, através do objeto da classe CervejaModel.
+	 * Metodo responsavel acionar a listagem de cervejas no banco de dados,
+	 * atraves do objeto da classe CervejaModel.
 	 * 
 	 * @return ArrayList com os objetos da Classe Cerveja gerados com os dados
 	 *         recebidos do banco de dados.
@@ -78,8 +94,10 @@ public class CervejaController implements ICervejaDAO {
 	public List<Cerveja> listarTodos() {
 		return cervejaModel.listarTodos();
 	}
+
 	/**
-	 * Método responsável por buscar e retornar o objeto de uma Cerveja, com os dados do banco de dados através do método contido na classe CervejaModel.
+	 * Metodo responsavel por buscar e retornar o objeto de uma Cerveja, com os
+	 * dados do banco de dados atraves do metodo contido na classe CervejaModel.
 	 * 
 	 * @param id
 	 *            ID da cerveja cadastrada no banco
@@ -88,11 +106,28 @@ public class CervejaController implements ICervejaDAO {
 	public Cerveja selecionarCerveja(int id) {
 		return cervejaModel.selecionarCerv(id);
 	}
-/** 
- * Método responsável por validar o objeto cerveja, garantindo que seus dados estejam dentro do permitido pelo banco de dados.
- * @param cerveja
- * @return boolean true para objeto dentro dos limites e false caso contrário
- */
+
+	/**
+	 * Metodo responsavel por buscar cerveja que contem uma determinada string
+	 * em seu nome.
+	 * 
+	 * @param String
+	 *            busca
+	 * @return List<Cerveja> com cervejas que contenham busca
+	 */
+	@Override
+	public List<Cerveja> buscarCerv(String busca) {
+		return cervejaModel.buscarCerv(busca);
+	}
+
+	/**
+	 * Metodo responsavel por validar o objeto cerveja, garantindo que seus
+	 * dados estejam dentro do permitido pelo banco de dados.
+	 * 
+	 * @param cerveja
+	 * @return boolean true para objeto dentro dos limites e false caso
+	 *         contrário
+	 */
 	private boolean validarCerveja(Cerveja cerveja) {
 
 		String nm_cerv = cerveja.getNm_cerv();
@@ -108,7 +143,7 @@ public class CervejaController implements ICervejaDAO {
 			System.out.println("Nome do estilo da cerveja muito longo.");
 			return false;
 		}
-				
+
 		if (teor_alcool > 70 || teor_alcool < 0) {
 			System.out.println("Teor Alcoolico fora dos valores permitidos.");
 			return false;
@@ -117,4 +152,5 @@ public class CervejaController implements ICervejaDAO {
 		return true;
 
 	}
+
 }

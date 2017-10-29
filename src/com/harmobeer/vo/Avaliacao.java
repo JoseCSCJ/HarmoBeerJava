@@ -6,7 +6,7 @@ package com.harmobeer.vo;
 /** 
  * Classe que modela o objeto Avaliacao
  * 
- * @author José Carlos Soares da Cruz Junior / Luan Henrique Cunha Alves
+ * @author Jose Carlos Soares da Cruz Junior / Luan Henrique Cunha Alves
  */
 public class Avaliacao {
 	
@@ -42,6 +42,16 @@ public class Avaliacao {
 	public Avaliacao(int id_harmo, int id_user, int nota, String comentario) {
 		this.id_harmo = id_harmo;
 		this.id_user = id_user;
+		this.nota = nota;
+		this.comentario = comentario;
+	}
+
+
+	/**
+	 * @param nota
+	 * @param comentario
+	 */
+	public Avaliacao(int nota, String comentario) {
 		this.nota = nota;
 		this.comentario = comentario;
 	}

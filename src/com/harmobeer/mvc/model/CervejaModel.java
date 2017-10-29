@@ -10,9 +10,9 @@ import com.harmobeer.interfaces.ICervejaDAO;
 import com.harmobeer.vo.Cerveja;
 
 /**
- * Classe responsável pelo Modelo dos objetos Cerveja
+ * Classe responsavel pelo Modelo dos objetos Cerveja
  * 
- * @author José Carlos Soares da Cruz Junior / Luan Henrique Cunha Alves
+ * @author Jose Carlos Soares da Cruz Junior / Luan Henrique Cunha Alves
  * 
  */
 public class CervejaModel implements ICervejaDAO {
@@ -20,7 +20,7 @@ public class CervejaModel implements ICervejaDAO {
 	private CervejaDAO cervejaDAO;
 
 	/**
-	 * Construtor da classe Cerveja Model, utilizando a criação de um novo
+	 * Construtor da classe Cerveja Model, utilizando a criacao de um novo
 	 * objeto da classe CervejaDAO.
 	 */
 	public CervejaModel() {
@@ -28,12 +28,12 @@ public class CervejaModel implements ICervejaDAO {
 	}
 
 	/**
-	 * Método que inclui uma cerveja no banco, utilizando o objeto cervejaDAO
+	 * Metodo que inclui uma cerveja no banco, utilizando o objeto cervejaDAO
 	 * para acessar o banco
 	 * 
 	 * @param Cerveja
-	 *            a ser incluída
-	 * @return boolean true para transição bem sucedida e false para transição
+	 *            a ser incluida
+	 * @return boolean true para transacao bem sucedida e false para transacao
 	 *         interrompida.
 	 * 
 	 */
@@ -43,12 +43,12 @@ public class CervejaModel implements ICervejaDAO {
 	}
 
 	/**
-	 * Método que edita uma cerveja no banco, utilizando o objeto cervejaDAO
+	 * Metodo que edita uma cerveja no banco, utilizando o objeto cervejaDAO
 	 * para acessar o banco
 	 * 
 	 * @param Cerveja
 	 *            a ser editada
-	 * @return boolean true para transição bem sucedida e false para transição
+	 * @return boolean true para transacao bem sucedida e false para transacao
 	 *         interrompida.
 	 */
 
@@ -58,12 +58,12 @@ public class CervejaModel implements ICervejaDAO {
 	}
 
 	/**
-	 * Método que exclui uma cerveja no banco, utilizando o objeto cervejaDAO
+	 * Metodo que exclui uma cerveja no banco, utilizando o objeto cervejaDAO
 	 * para acessar o banco
 	 * 
 	 * @param Cerveja
 	 *            a ser excluída
-	 * @return boolean true para transição bem sucedida e false para transição
+	 * @return boolean true para transacao bem sucedida e false para transacao
 	 *         interrompida.
 	 */
 
@@ -73,7 +73,7 @@ public class CervejaModel implements ICervejaDAO {
 	}
 
 	/**
-	 * Método responsável por realizar a listagem de todas as Cervejas
+	 * Metodo responsavel por realizar a listagem de todas as Cervejas
 	 * cadastradas no banco.
 	 * 
 	 * @return ArrayList com os objetos da Classe Cerveja gerados com os dados
@@ -87,7 +87,8 @@ public class CervejaModel implements ICervejaDAO {
 	}
 
 	/**
-	 * Método responsável por buscar e trazer o objeto de uma Cerveja, com os dados do banco de dados.
+	 * Metodo responsavel por buscar e trazer o objeto de uma Cerveja, com os
+	 * dados do banco de dados.
 	 * 
 	 * @param id
 	 *            ID da cerveja cadastrada no banco
@@ -96,6 +97,19 @@ public class CervejaModel implements ICervejaDAO {
 
 	public Cerveja selecionarCerv(int id) {
 		return cervejaDAO.selecionarCerv(id);
+	}
+
+	/**
+	 * Metodo responsavel por buscar cerveja que contem uma determinada string
+	 * em seu nome.
+	 * 
+	 * @param String
+	 *            busca
+	 * @return List<Cerveja> com cervejas que contenham busca
+	 */
+	@Override
+	public List<Cerveja> buscarCerv(String busca) {
+		return cervejaDAO.buscarCerv(busca);
 	}
 
 }

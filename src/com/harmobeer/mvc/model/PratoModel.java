@@ -10,9 +10,9 @@ import com.harmobeer.interfaces.IPratoDAO;
 import com.harmobeer.vo.Prato;
 
 /**
- * Classe responsável pelo Modelo dos objetos Prato
+ * Classe responsavel pelo Modelo dos objetos Prato
  * 
- * @author José Carlos Soares da Cruz Junior / Luan Henrique Cunha Alves
+ * @author Jose Carlos Soares da Cruz Junior / Luan Henrique Cunha Alves
  * 
  */
 public class PratoModel implements IPratoDAO {
@@ -20,20 +20,20 @@ public class PratoModel implements IPratoDAO {
 	private PratoDAO pratoDAO;
 
 	/**
-	 * Construtor da classe Prato Model, utilizando a criação de um novo
-	 * objeto da classe PratoDAO.
+	 * Construtor da classe Prato Model, utilizando a criacaSo de um novo objeto
+	 * da classe PratoDAO.
 	 */
 	public PratoModel() {
 		pratoDAO = new PratoDAO();
 	}
 
 	/**
-	 * Método que inclui uma prato no banco, utilizando o objeto pratoDAO
-	 * para acessar o banco
+	 * Metodo que inclui um prato no banco, utilizando o objeto pratoDAO para
+	 * acessar o banco
 	 * 
 	 * @param Prato
-	 *            a ser incluída
-	 * @return boolean true para transação bem sucedida e false para transação
+	 *            a ser incluido
+	 * @return boolean true para transacao bem sucedida e false para transacao
 	 *         interrompida.
 	 * 
 	 */
@@ -43,8 +43,8 @@ public class PratoModel implements IPratoDAO {
 	}
 
 	/**
-	 * Método que edita uma prato no banco, utilizando o objeto pratoDAO
-	 * para acessar o banco
+	 * Metodo que edita uma prato no banco, utilizando o objeto pratoDAO para
+	 * acessar o banco
 	 * 
 	 * @param Prato
 	 *            a ser editada
@@ -58,12 +58,12 @@ public class PratoModel implements IPratoDAO {
 	}
 
 	/**
-	 * Método que exclui uma prato no banco, utilizando o objeto pratoDAO
-	 * para acessar o banco
+	 * Metodo que exclui uma prato no banco, utilizando o objeto pratoDAO para
+	 * acessar o banco
 	 * 
 	 * @param Prato
-	 *            a ser excluída
-	 * @return boolean true para transação bem sucedida e false para transação
+	 *            a ser excluida
+	 * @return boolean true para transacao bem sucedida e false para transacao
 	 *         interrompida.
 	 */
 
@@ -73,8 +73,8 @@ public class PratoModel implements IPratoDAO {
 	}
 
 	/**
-	 * Método responsável por realizar a listagem de todas os Pratos
-	 * cadastradas no banco.
+	 * Metodo responsavel por realizar a listagem de todas os Pratos cadastradas
+	 * no banco.
 	 * 
 	 * @return ArrayList com os objetos da Classe Prato gerados com os dados
 	 *         recebidos do banco de dados.
@@ -87,7 +87,8 @@ public class PratoModel implements IPratoDAO {
 	}
 
 	/**
-	 * Método responsável por buscar e trazer o objeto de um Prato, com os dados do banco de dados.
+	 * Metodo responsavel por buscar e trazer o objeto de um Prato, com os dados
+	 * do banco de dados.
 	 * 
 	 * @param id
 	 *            ID do prato cadastrado no banco
@@ -96,6 +97,19 @@ public class PratoModel implements IPratoDAO {
 
 	public Prato selecionarPrato(int id) {
 		return pratoDAO.selecionarPrato(id);
+	}
+
+	/**
+	 * Metodo responsavel por buscar e retornar uma lista de pratos que contem
+	 * uma string pre-determinada.
+	 *
+	 * @param String
+	 *            busca
+	 * @return List<Prato> com pratos que contem busca
+	 */
+	@Override
+	public List<Prato> buscarPrato(String busca) {
+		return pratoDAO.buscarPrato(busca);
 	}
 
 }

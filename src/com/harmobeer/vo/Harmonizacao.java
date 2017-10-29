@@ -6,7 +6,7 @@ package com.harmobeer.vo;
 /**
  Classe que modela o objeto Harmonizacao
  * 
- * @author José Carlos Soares da Cruz Junior / Luan Henrique Cunha Alves
+ * @author Jose Carlos Soares da Cruz Junior / Luan Henrique Cunha Alves
  *
  */
 public class Harmonizacao {

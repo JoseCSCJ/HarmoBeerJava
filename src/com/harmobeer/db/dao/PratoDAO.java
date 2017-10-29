@@ -16,9 +16,9 @@ import com.harmobeer.vo.Prato;
 
 /**
  *
- * Classe respons�vel pelo acesso ao banco de dados do objeto prato
+ * Classe responsavel pelo acesso ao banco de dados do objeto prato
  *
- * @author Jos� Carlos Soares da Cruz Junior / Luan Henrique Cunha Alves
+ * @author Jose Carlos Soares da Cruz Junior / Luan Henrique Cunha Alves
  *
  */
 public class PratoDAO implements IPratoDAO {
@@ -27,15 +27,15 @@ public class PratoDAO implements IPratoDAO {
 	private static final String LOCAL_HOST = "jdbc:oracle:thin:@//localhost:1521/xe";
 	private static final String DB_USER = "harmobeer";
 	private static final String DB_PASSWORD = "harmobeer";
-	private static final String ERRO = "N�o foi poss�vel completar sua requisi��o.";
+	private static final String ERRO = "Nao foi possivel completar sua requisicao.";
 
 	/**
-	 * M�todo respons�vel por realizar a inclus�o de pratos no banco.
+	 * Metodo responsavel por realizar a inclusao de pratos no banco.
 	 *
 	 * @param Prato
-	 *            prato a ser inclu�do
-	 * @return boolean true para transa��o bem sucedida e false para transa��o
-	 *         interrompida.
+	 *            prato a ser incluido
+	 * @return boolean true para transacao bem sucedida e false para
+	 *         transacao interrompida.
 	 *
 	 */
 	@Override
@@ -77,12 +77,13 @@ public class PratoDAO implements IPratoDAO {
 	}
 
 	/**
-	 * M�todo respons�vel por realizar a edi��o de Pratos cadastradas no banco.
+	 * Metodo responsavel por realizar a edicao de Pratos cadastrados no
+	 * banco.
 	 *
 	 * @param Prato
 	 *            prato a ser editado
-	 * @return boolean true para transa��o bem sucedida e false para transa��o
-	 *         interrompida.
+	 * @return boolean true para transacao bem sucedida e false para
+	 *         transacao interrompida.
 	 */
 	@Override
 	public boolean editar(Prato prato) {
@@ -124,35 +125,56 @@ public class PratoDAO implements IPratoDAO {
 	}
 
 	/**
-	 * M�todo respons�vel por realizar a exclus�o de Pratos cadastradas no banco
+	 * Metodo responsavel por realizar a exclusao de Pratos cadastrados no
+	 * banco
 	 *
 	 * @param Prato
-	 *            prato a deletada
-	 * @return boolean true para transa��o bem sucedida e false para transa��o
-	 *         interrompida.
+	 *            prato a deletado
+	 * @return boolean true para transacao bem sucedida e false para
+	 *         transacao interrompida.
 	 */
 	@Override
 	public boolean deletar(Prato prato) {
 		Connection connection = null;
 		PreparedStatement sttm = null;
+		PreparedStatement sttmHarmo = null;
 		try {
 			Class.forName(JDBC_DRIVER);
 
 			connection = DriverManager.getConnection(LOCAL_HOST, DB_USER, DB_PASSWORD);
-
+			sttmHarmo = connection.prepareStatement("select id_harmo from harmonizacao where id_prato=?");
+			sttmHarmo.setInt(1, prato.getId_prato());
+			ResultSet rs = sttmHarmo.executeQuery();
+			while (rs.next()) {
+				int id_harmo = rs.getInt("id_harmo");
+				sttm = connection.prepareStatement("DELETE from avaliacao where id_harmo = ?");
+				sttm.setInt(1, id_harmo);
+				sttm.executeUpdate();
+				if (sttm != null) {
+					sttm.close();
+				}
+			}
+			if (sttmHarmo != null) {
+				sttmHarmo.close();
+			}
+			if (sttm != null) {
+				sttm.close();
+			}
 			sttm = connection.prepareStatement("DELETE from harmonizacao where id_prato = ?");
-            sttm.setInt(1, prato.getId_prato());
-            sttm.executeUpdate();
-            if (sttm != null) {
-                sttm.close();
-            }
+			sttm.setInt(1, prato.getId_prato());
+			sttm.executeUpdate();
+			if (sttm != null) {
+				sttm.close();
+			}
 
 			sttm = connection.prepareStatement("DELETE from prato where id_prato = ?");
 			sttm.setInt(1, prato.getId_prato());
 			sttm.executeUpdate();
 			return true;
 
-		} catch (ClassNotFoundException e) {
+		} catch (
+
+		ClassNotFoundException e) {
 			System.out.println(ERRO);
 			e.printStackTrace();
 			return false;
@@ -176,8 +198,8 @@ public class PratoDAO implements IPratoDAO {
 	}
 
 	/**
-	 * M�todo respons�vel por realizar a listagem de todas os Pratos cadastrados
-	 * no banco.
+	 * Metodo responsavel por realizar a listagem de todas os Pratos
+	 * cadastrados no banco.
 	 *
 	 * @return ArrayList com os objetos da Classe Prato gerados com os dados
 	 *         recebidos do banco de dados.
@@ -232,7 +254,7 @@ public class PratoDAO implements IPratoDAO {
 	}
 
 	/**
-	 * M�todo respons�vel por buscar e retornar um objeto da classe Prato no
+	 * Metodo responsavel por buscar e retornar um objeto da classe Prato no
 	 * banco
 	 *
 	 * @param id
@@ -278,5 +300,62 @@ public class PratoDAO implements IPratoDAO {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	/**
+	 * Metodo responsavel por buscar e retornar uma lista de pratos que contem
+	 * uma string pre-determinada.
+	 *
+	 * @param String
+	 *            busca
+	 * @return List<Prato> com pratos que contem busca
+	 */
+	@Override
+	public List<Prato> buscarPrato(String busca) {
+		ArrayList<Prato> listaPrato = new ArrayList<Prato>();
+		Connection connection = null;
+		PreparedStatement sttm = null;
+		try {
+			Class.forName(JDBC_DRIVER);
+
+			connection = DriverManager.getConnection(LOCAL_HOST, DB_USER, DB_PASSWORD);
+
+			sttm = connection.prepareStatement("select * from prato where nm_prato like '%" + busca + "%'");
+
+			ResultSet rs = sttm.executeQuery();
+
+			while (rs.next()) {
+
+				int id_prato = rs.getInt("id_prato");
+				String nm_prato = rs.getString("nm_prato");
+
+				Prato prato = new Prato(id_prato, nm_prato);
+
+				listaPrato.add(prato);
+			}
+
+			return listaPrato;
+
+		} catch (ClassNotFoundException e) {
+			System.out.println(ERRO);
+			e.printStackTrace();
+			return null;
+		} catch (SQLException Except) {
+			System.out.println(ERRO);
+			Except.printStackTrace();
+			return null;
+		} finally {
+			try {
+				if (connection != null) {
+					connection.close();
+				}
+				if (sttm != null) {
+					sttm.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
 	}
 }

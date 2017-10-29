@@ -9,6 +9,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import com.harmobeer.vo.Avaliacao;
+import com.harmobeer.vo.Harmonizacao;
+import com.harmobeer.vo.Usuario;
 
 /**
  * Classe responsavel pelo acesso ao banco de dados para Avaliacao
@@ -22,9 +24,17 @@ public class AvaliacaoDAO
     private static final String LOCAL_HOST  = "jdbc:oracle:thin:@//localhost:1521/xe";
     private static final String DB_USER     = "harmobeer";
     private static final String DB_PASSWORD = "harmobeer";
-    private static final String ERRO        = "N�o foi poss�vel completar sua requisi��o.";
+    private static final String ERRO        = "Nao foi possivel completar sua requisicao.";
 
-    public boolean incluirAvaliacao(Avaliacao aval)
+    /**
+     * 
+     * Metodo para incluir uma avaliacao no banco de dados, de um determinado usuario em uma determinada harmonizacao.
+     * @param aval
+     * @param user
+     * @param harmo
+     * @return boolean
+     */
+    public boolean incluirAvaliacao(Avaliacao aval, Usuario user, Harmonizacao harmo)
     {
         Connection connection = null;
         PreparedStatement sttm = null;
@@ -37,8 +47,8 @@ public class AvaliacaoDAO
 
             sttm = connection.prepareStatement(
                             "insert into avaliacao(id_aval,id_user, id_harmo, nota, comentario) values (seqaval.nextval,?,?,?,?)");
-            sttm.setInt(1, aval.getId_user());
-            sttm.setInt(2, aval.getId_harmo());
+            sttm.setInt(1, user.getId_user());
+            sttm.setInt(2, harmo.getId_harmo());
             sttm.setInt(3, aval.getNota());
             sttm.setString(4, aval.getComentario());
 
@@ -79,6 +89,12 @@ public class AvaliacaoDAO
         }
     }
 
+    /**
+     * Metodo para editar uma avaliacao nos itens de nota e comentario.
+     * 
+     * @param aval
+     * @return boolean
+     */
     public boolean editarAvaliacao (Avaliacao aval) {
         Connection connection = null;
         PreparedStatement sttm = null;
@@ -132,6 +148,11 @@ public class AvaliacaoDAO
         }
     }
 
+    /** 
+     * Metodo para deletar uma avaliacao. 
+     * @param aval
+     * @return boolean
+     */
     public boolean deletarAvaliacao (Avaliacao aval) {
         Connection connection = null;
         PreparedStatement sttm = null;

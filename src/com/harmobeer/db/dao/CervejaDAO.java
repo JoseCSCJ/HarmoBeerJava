@@ -16,8 +16,9 @@ import com.harmobeer.vo.Cerveja;
 
 /**
  *
- * Classe respons�vel pelo acesso ao banco de dados do objeto cerveja
- * @author Jos� Carlos Soares da Cruz Junior / Luan Henrique Cunha Alves
+ * Classe responsavel pelo acesso ao banco de dados do objeto cerveja
+ * 
+ * @author Jose Carlos Soares da Cruz Junior / Luan Henrique Cunha Alves
  *
  */
 public class CervejaDAO implements ICervejaDAO {
@@ -26,15 +27,15 @@ public class CervejaDAO implements ICervejaDAO {
 	private static final String LOCAL_HOST = "jdbc:oracle:thin:@//localhost:1521/xe";
 	private static final String DB_USER = "harmobeer";
 	private static final String DB_PASSWORD = "harmobeer";
-	private static final String ERRO = "N�o foi poss�vel completar sua requisi��o.";
+	private static final String ERRO = "Nao foi possivel completar sua requisicao.";
 
 	/**
-	 * M�todo respons�vel por realizar a inclus�o de Cervejas no banco.
+	 * Metodo responsavel por realizar a inclusao de Cervejas no banco.
 	 *
 	 * @param Cerveja
-	 *            cerveja a ser inclu�da
-	 * @return boolean true para transi��o bem sucedida e false para transi��o
-	 *         interrompida.
+	 *            cerveja a ser incluida
+	 * @return boolean true para transacao bem sucedida e false para
+	 *         transacao interrompida.
 	 *
 	 */
 	@Override
@@ -54,8 +55,6 @@ public class CervejaDAO implements ICervejaDAO {
 			sttm.setDouble(3, cerveja.getTeor_alcool());
 
 			sttm.executeUpdate();
-
-
 
 			return true;
 
@@ -83,13 +82,13 @@ public class CervejaDAO implements ICervejaDAO {
 	}
 
 	/**
-	 * M�todo respons�vel por realizar a edi��o de Cervejas cadastradas no
-	 * banco.
+	 * Metodo responsavel por realizar a edicao de Cervejas cadastradas
+	 * no banco.
 	 *
 	 * @param Cerveja
 	 *            cerveja a ser editada
-	 * @return boolean true para transi��o bem sucedida e false para transi��o
-	 *         interrompida.
+	 * @return boolean true para transacao bem sucedida e false para
+	 *         transacao interrompida.
 	 */
 	@Override
 	public boolean editar(Cerveja cerveja) {
@@ -134,28 +133,47 @@ public class CervejaDAO implements ICervejaDAO {
 	}
 
 	/**
-	 * M�todo respons�vel por realizar a exclus�o de Cervejas cadastradas no
-	 * banco
+	 * Metodo responsavel por realizar a exclusao de Cervejas cadastradas
+	 * no banco
 	 *
 	 * @param Cerveja
 	 *            cerveja a deletada
-	 * @return boolean true para transi��o bem sucedida e false para transi��o
-	 *         interrompida.
+	 * @return boolean true para transacao bem sucedida e false para
+	 *         transacao interrompida.
 	 */
 	@Override
 	public boolean deletar(Cerveja cerveja) {
 		Connection connection = null;
 		PreparedStatement sttm = null;
+		PreparedStatement sttmHarmo = null;
 		try {
 			Class.forName(JDBC_DRIVER);
 
 			connection = DriverManager.getConnection(LOCAL_HOST, DB_USER, DB_PASSWORD);
+			sttmHarmo = connection.prepareStatement("select id_harmo from harmonizacao where id_cerv=?");
+			sttmHarmo.setInt(1, cerveja.getId_cerv());
+			ResultSet rs = sttmHarmo.executeQuery();
+			while (rs.next()) {
+				int id_harmo = rs.getInt("id_harmo");
+				sttm = connection.prepareStatement("DELETE from avaliacao where id_harmo = ?");
+				sttm.setInt(1, id_harmo);
+				sttm.executeUpdate();
+				if (sttm != null) {
+					sttm.close();
+				}
+			}
+			if (sttmHarmo != null) {
+				sttmHarmo.close();
+			}
+			if (sttm != null) {
+				sttm.close();
+			}
 			sttm = connection.prepareStatement("DELETE from harmonizacao where id_cerv = ?");
 			sttm.setInt(1, cerveja.getId_cerv());
 			sttm.executeUpdate();
 			if (sttm != null) {
-                sttm.close();
-            }
+				sttm.close();
+			}
 			sttm = connection.prepareStatement("DELETE from cerveja where id_cerv = ?");
 			sttm.setInt(1, cerveja.getId_cerv());
 			sttm.executeUpdate();
@@ -185,7 +203,7 @@ public class CervejaDAO implements ICervejaDAO {
 	}
 
 	/**
-	 * M�todo respons�vel por realizar a listagem de todas as Cervejas
+	 * Metodo responsavel por realizar a listagem de todas as Cervejas
 	 * cadastradas no banco.
 	 *
 	 * @return ArrayList com os objetos da Classe Cerveja gerados com os dados
@@ -243,7 +261,7 @@ public class CervejaDAO implements ICervejaDAO {
 	}
 
 	/**
-	 * M�todo respons�vel por buscar e retornar um objeto da classe Cerveja no
+	 * Metodo responsavel por buscar e retornar um objeto da classe Cerveja no
 	 * banco
 	 *
 	 * @param id
@@ -291,5 +309,63 @@ public class CervejaDAO implements ICervejaDAO {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	/**
+	 * Metodo responsavel por buscar e retornar uma lista de cervejas que contem
+	 * uma string pre-determinada.
+	 *
+	 * @param String
+	 *            busca
+	 * @return List<Cerveja> com cervejas que contem busca no nm_cerv
+	 */
+	public List<Cerveja> buscarCerv(String busca) {
+		ArrayList<Cerveja> listaCerv = new ArrayList<Cerveja>();
+		Connection connection = null;
+		PreparedStatement sttm = null;
+		try {
+			Class.forName(JDBC_DRIVER);
+
+			connection = DriverManager.getConnection(LOCAL_HOST, DB_USER, DB_PASSWORD);
+
+			sttm = connection.prepareStatement("select * from cerveja where nm_cerv like '%" + busca + "%'");
+
+			ResultSet rs = sttm.executeQuery();
+
+			while (rs.next()) {
+
+				int id_cerv = rs.getInt("id_cerv");
+				String nm_cerv = rs.getString("nm_cerv");
+				String nm_estilo = rs.getString("nm_estilo");
+				double teor_alcool = rs.getDouble("teor_alcoolico");
+
+				Cerveja cerv = new Cerveja(id_cerv, nm_cerv, nm_estilo, teor_alcool);
+
+				listaCerv.add(cerv);
+			}
+
+			return listaCerv;
+
+		} catch (ClassNotFoundException e) {
+			System.out.println(ERRO);
+			e.printStackTrace();
+			return null;
+		} catch (SQLException Except) {
+			System.out.println(ERRO);
+			Except.printStackTrace();
+			return null;
+		} finally {
+			try {
+				if (connection != null) {
+					connection.close();
+				}
+				if (sttm != null) {
+					sttm.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
 	}
 }
